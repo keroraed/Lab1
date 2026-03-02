@@ -1,8 +1,9 @@
 <?php
 $line = $_POST['line'];
 unset($_POST['line']);
+$_POST = array_map(fn($v) => is_array($v) ? $v : str_replace(["\r", "\n"], " ", $v), $_POST);
 $_POST['skills'] = implode("-", $_POST['skills'] ?? []);
-$data = implode(",", $_POST);
+$data = implode("|", $_POST);
 
 $result = file("db.txt", FILE_IGNORE_NEW_LINES);
 $result[$line] = $data;

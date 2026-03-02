@@ -10,7 +10,7 @@
     <?php
     $line = $_GET['line'];
     $result = file("db.txt", FILE_IGNORE_NEW_LINES);
-    $row_data = explode(",", $result[$line]);
+    $row_data = explode("|", $result[$line]);
     $skills = explode("-", $row_data[5] ?? '');
     ?>
     <form action="update.php" method="post">

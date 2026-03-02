@@ -10,7 +10,7 @@
     <?php
     $line = $_GET['line'];
     $result = file("db.txt", FILE_IGNORE_NEW_LINES);
-    $row_data = explode(",", $result[$line]);
+    $row_data = explode("|", $result[$line]);
     $fields = ["First Name", "Last Name", "Address", "Country", "Gender", "Skills", "Username", "Password", "Department"];
     ?>
     <table border="1" cellpadding="5">

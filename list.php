@@ -29,7 +29,7 @@
             $result = file("db.txt", FILE_IGNORE_NEW_LINES);
             foreach ($result as $index => $row) {
                 if (empty(trim($row))) continue;
-                $row_data = explode(",", $row);
+                $row_data = explode("|", $row);
                 echo "<tr>";
                 foreach ($row_data as $val) {
                     echo "<td>$val</td>";

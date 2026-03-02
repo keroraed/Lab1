@@ -1,17 +1,17 @@
 <?php
-$firstName = $_REQUEST['first_name'];
-$lastName = $_REQUEST['last_name'];
-$address = $_REQUEST['address'];
-$country = $_REQUEST['country'] ?? '';
-$gender = $_REQUEST['gender'] ?? '';
-$skills = $_REQUEST['skills'] ?? [];
-$username = $_REQUEST['username'] ?? '';
-$password = $_REQUEST['password'] ?? '';
+$firstName = str_replace(["\r", "\n"], " ", $_REQUEST['first_name']);
+$lastName  = str_replace(["\r", "\n"], " ", $_REQUEST['last_name']);
+$address   = str_replace(["\r", "\n"], " ", $_REQUEST['address']);
+$country    = $_REQUEST['country'] ?? '';
+$gender     = $_REQUEST['gender'] ?? '';
+$skills     = $_REQUEST['skills'] ?? [];
+$username   = $_REQUEST['username'] ?? '';
+$password   = $_REQUEST['password'] ?? '';
 $department = $_REQUEST['department'] ?? '';
 
 // Save to db.txt
 $skillsStr = implode("-", $skills);
-$data = implode(",", [$firstName, $lastName, $address, $country, $gender, $skillsStr, $username, $password, $department]);
+$data = implode("|", [$firstName, $lastName, $address, $country, $gender, $skillsStr, $username, $password, $department]);
 file_put_contents("db.txt", $data . "\n", FILE_APPEND);
 
 $title = 'Miss';
