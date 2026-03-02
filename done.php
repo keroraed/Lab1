@@ -1,13 +1,25 @@
 <?php
-$first_name = isset($_POST['first_name']) ? $_POST['first_name'] : '';
-$last_name = isset($_POST['last_name']) ? $_POST['last_name'] : '';
-$address = isset($_POST['address']) ? $_POST['address'] : '';
-$skills = isset($_POST['skills']) && is_array($_POST['skills']) ? array_map('htmlspecialchars', $_POST['skills']) : [];
-$department = isset($_POST['department']) ? $_POST['department'] : '';
-$gender = isset($_POST['gender']) ? $_POST['gender'] : '';
-$title = $gender === 'Female' ? 'Miss' : 'Mr.';
-$skills_text = join(', ', $skills);
-$full_name = $first_name . ' ' . $last_name;
+$firstName = $_REQUEST['first_name'];
+$lastName = $_REQUEST['last_name'];
+$address = $_REQUEST['address'];
+$country = $_REQUEST['country'] ?? '';
+$gender = $_REQUEST['gender'] ?? '';
+$skills = $_REQUEST['skills'] ?? [];
+$username = $_REQUEST['username'] ?? '';
+$password = $_REQUEST['password'] ?? '';
+$department = $_REQUEST['department'] ?? '';
+
+// Save to db.txt
+$skillsStr = implode("-", $skills);
+$data = implode(",", [$firstName, $lastName, $address, $country, $gender, $skillsStr, $username, $password, $department]);
+file_put_contents("db.txt", $data . "\n", FILE_APPEND);
+
+$title = 'Miss';
+if ($gender == 'Male') {
+    $title = 'Mr.';
+}
+
+$fullName = $firstName . ' ' . $lastName;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,12 +29,30 @@ $full_name = $first_name . ' ' . $last_name;
     <title>Review</title>
 </head>
 <body>
-<p>Thanks <?php echo $title; ?> <?php echo $first_name . ' ' . $last_name; ?></p>
-<h2>Please Review Your Information:</h2>
-<p><strong>Name:</strong> <?php echo $full_name; ?></p>
-<p><strong>Address:</strong> <?php echo $address; ?></p>
-<p><strong>Your Skills:</strong> <?php echo $skills_text; ?></p>
-<p><strong>Department:</strong> <?php echo $department; ?></p>
-<button type="button" onclick="window.print()">Print</button>
+    <div>
+        <p>Thanks <?php echo $title. ' ' . $fullName; ?></p>
+
+        <p>Please Review Your Information:</p>
+
+        <p><strong>Name:</strong> <?php echo $fullName; ?></p>
+        <p><strong>Address:</strong> <?php echo $address; ?></p>
+
+        <p><strong>Your Skills:</strong></p>
+        <?php
+        if (!empty($skills)) {
+            echo '<div>';
+            foreach ($skills as $skill) {
+                echo $skill . '<br>';
+            }
+            echo '</div>';
+        } else {
+            echo '<div>None</div>';
+        }
+        ?>
+
+        <p><strong>Department:</strong> <?php echo $department; ?></p>
+    </div>
+    <br>
+    <a href="list.php">Go to Users List</a>
 </body>
 </html>

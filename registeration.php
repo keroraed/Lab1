@@ -16,11 +16,10 @@
     <label for="country">Country</label>
     <select id="country" name="country">
         <option value="">Select Country</option>
-        <option value="Egypt">Egypt</option>
+        <option value="India">India</option>
         <option value="USA">USA</option>
         <option value="UK">UK</option>
-        <option value="Germany">Germany</option>
-        <option value="France">France</option>
+        <option value="Canada">Canada</option>
     </select><br><br>
     <label>Gender</label>
     <input type="radio" id="male" name="gender" value="Male">
