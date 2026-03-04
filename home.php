@@ -3,82 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Add New User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2>Registration Form</h2>
-
-    <form action="save.php" method="post">
-        <p>
-            <label for="first_name">First Name:</label><br>
-            <input type="text" id="first_name" name="first_name" required>
-        </p>
-
-        <p>
-            <label for="last_name">Last Name:</label><br>
-            <input type="text" id="last_name" name="last_name" required>
-        </p>
-
-        <p>
-            <label for="address">Address:</label><br>
-            <textarea id="address" name="address" rows="4" cols="30" required></textarea>
-        </p>
-
-        <p>
-            <label for="country">Country:</label><br>
-            <select id="country" name="country" required>
-                <option value="">Select Country</option>
-                <option value="India">India</option>
-                <option value="USA">USA</option>
-                <option value="UK">UK</option>
-                <option value="Canada">Canada</option>
-            </select>
-        </p>
-
-        <p>
-            Gender:<br>
-            <label><input type="radio" name="gender" value="Male" required> Male</label>
-            <label><input type="radio" name="gender" value="Female" required> Female</label>
-        </p>
-
-        <p>
-            Skills:<br>
-            <label><input type="checkbox" name="skills[]" value="PHP"> PHP</label>
-            <label><input type="checkbox" name="skills[]" value="MySQL"> MySQL</label>
-            <label><input type="checkbox" name="skills[]" value="J2SE"> J2SE</label>
-            <label><input type="checkbox" name="skills[]" value="PostgreSQL"> PostgreSQL</label>
-        </p>
-
-        <p>
-            <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username" required>
-        </p>
-
-        <p>
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" required>
-        </p>
-
-        <p>
-            <label for="department">Department:</label><br>
-            <input type="text" id="department" name="department" placeholder="OpenSource" required>
-        </p>
-
-        <p>
-            Verification Code: <strong>Sh68Sa</strong>
-        </p>
-
-        <p>
-            <label for="verification_input">Please enter the code shown above:</label><br>
-            <input type="text" id="verification_input" name="verification_input" required>
-        </p>
-
-        <input type="hidden" name="verification_code" value="Sh68Sa">
-
-        <p>
-            <button type="submit">Submit</button>
-            <button type="reset">Reset</button>
-        </p>
-    </form>
+<body class="bg-light">
+<div class="container mt-5" style="max-width:600px">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Add New User</h5>
+        </div>
+        <div class="card-body">
+            <form action="save.php" method="post">
+                <div class="mb-3">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="first_name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="last_name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" name="address" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Country</label>
+                    <select class="form-select" name="country" required>
+                        <option value="">Select Country</option>
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                        <option value="Canada">Canada</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Gender</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="Male" required>
+                        <label class="form-check-label">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="Female">
+                        <label class="form-check-label">Female</label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Skills</label><br>
+                    <?php foreach (["PHP","MySQL","J2SE","PostgreSQL"] as $s): ?>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="skills[]" value="<?= $s ?>">
+                        <label class="form-check-label"><?= $s ?></label>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Department</label>
+                    <input type="text" class="form-control" name="department" required>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Save User</button>
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                    <a href="list.php" class="btn btn-outline-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

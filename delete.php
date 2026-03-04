@@ -1,7 +1,9 @@
 <?php
-$line = $_GET['line'];
-$result = file("db.txt", FILE_IGNORE_NEW_LINES);
-unset($result[$line]);
-file_put_contents("db.txt", implode("\n", $result) . "\n");
-header("Location:list.php");
-?>
+require 'conn.php';
+
+$id   = (int)($_GET['id'] ?? 0);
+$stmt = $connection->prepare("DELETE FROM users WHERE id = ?");
+$stmt->execute([$id]);
+
+header('Location: list.php');
+

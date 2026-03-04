@@ -4,45 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<form method="post" action="done.php">
-    <label for="first_name">First Name</label>
-    <input type="text" id="first_name" name="first_name" required><br><br>
-    <label for="last_name">Last Name</label>
-    <input type="text" id="last_name" name="last_name" required><br><br>
-    <label for="address">Address</label>
-    <textarea id="address" name="address" rows="4"></textarea><br><br>
-    <label for="country">Country</label>
-    <select id="country" name="country">
-        <option value="">Select Country</option>
-        <option value="India">India</option>
-        <option value="USA">USA</option>
-        <option value="UK">UK</option>
-        <option value="Canada">Canada</option>
-    </select><br><br>
-    <label>Gender</label>
-    <input type="radio" id="male" name="gender" value="Male">
-    <label for="male">Male</label>
-    <input type="radio" id="female" name="gender" value="Female">
-    <label for="female">Female</label><br><br>
-    <label>Skills</label><br>
-    <input type="checkbox" id="skill_php" name="skills[]" value="PHP">
-    <label for="skill_php">PHP</label>
-    <input type="checkbox" id="skill_mysql" name="skills[]" value="MySQL" checked>
-    <label for="skill_mysql">MySQL</label>
-    <input type="checkbox" id="skill_j2se" name="skills[]" value="J2SE" checked>
-    <label for="skill_j2se">J2SE</label>
-    <input type="checkbox" id="skill_postgresql" name="skills[]" value="PostgreSQL">
-    <label for="skill_postgresql">PostgreeSQL</label><br><br>
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" required><br><br>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required><br><br>
-    <label for="department">Department</label>
-    <input type="text" id="department" name="department" value="OpenSource"><br><br>
-    <button type="submit">Submit</button>
-    <button type="reset">Reset</button>
-</form>
+<div class="container mt-4" style="max-width:600px">
+    <h3>Registration Form</h3>
+    <hr>
+    <form action="done.php" method="post">
+        <p><label>First Name:</label><br><input type="text" name="first_name" required></p>
+        <p><label>Last Name:</label><br><input type="text" name="last_name" required></p>
+        <p><label>Address:</label><br><textarea name="address" rows="3" cols="35"></textarea></p>
+        <p><label>Country:</label><br><select name="country" required><option value="">Select Country</option><option value="India">India</option><option value="USA">USA</option><option value="UK">UK</option><option value="Canada">Canada</option></select></p>
+        <p>Gender:<br><label><input type="radio" name="gender" value="Male" required> Male</label> <label><input type="radio" name="gender" value="Female"> Female</label></p>
+        <p>Skills:<br><?php foreach (['PHP','MySQL','J2SE','PostgreSQL'] as $s): ?><label><input type="checkbox" name="skills[]" value="<?= $s ?>"> <?= $s ?></label> <?php endforeach; ?></p>
+        <p><label>Username:</label><br><input type="text" name="username" required></p>
+        <p><label>Password:</label><br><input type="password" name="password" required></p>
+        <p><label>Department:</label><br><input type="text" name="department" required></p>
+        <p><button type="submit" class="btn btn-primary">Submit</button> <button type="reset" class="btn btn-secondary">Reset</button> <a href="list.php" class="btn btn-outline-secondary">Back to List</a></p>
+    </form>
+</div>
 </body>
 </html>

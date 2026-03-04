@@ -1,12 +1,21 @@
 <?php
-$line = $_POST['line'];
-unset($_POST['line']);
-$_POST = array_map(fn($v) => is_array($v) ? $v : str_replace(["\r", "\n"], " ", $v), $_POST);
-$_POST['skills'] = implode("-", $_POST['skills'] ?? []);
-$data = implode("|", $_POST);
+require 'conn.php';
 
-$result = file("db.txt", FILE_IGNORE_NEW_LINES);
-$result[$line] = $data;
-file_put_contents("db.txt", implode("\n", $result) . "\n");
-header("Location:list.php");
-?>
+$id         = (int)($_POST['id'] ?? 0);
+$first_name = trim($_POST['first_name'] ?? '');
+$last_name  = trim($_POST['last_name']  ?? '');
+$address    = trim($_POST['address']    ?? '');
+$country    = $_POST['country']    ?? '';
+$gender     = $_POST['gender']     ?? '';
+$skills     = implode('-', $_POST['skills'] ?? []);
+$username   = trim($_POST['username']   ?? '');
+$password   = trim($_POST['password']   ?? '');
+$department = trim($_POST['department'] ?? '');
+
+$stmt = $connection->prepare(
+    "UPDATE users SET first_name=?, last_name=?, address=?, country=?, gender=?, skills=?, username=?, password=?, department=? WHERE id=?"
+);
+$stmt->execute([$first_name, $last_name, $address, $country, $gender, $skills, $username, $password, $department, $id]);
+
+header('Location: list.php');
+
