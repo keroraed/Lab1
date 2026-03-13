@@ -28,6 +28,7 @@
                 <th>Skills</th>
                 <th>Username</th>
                 <th>Department</th>
+                <th>Photo</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -42,6 +43,13 @@
                 <td><?= htmlspecialchars($row['skills']) ?></td>
                 <td><?= htmlspecialchars($row['username']) ?></td>
                 <td><?= htmlspecialchars($row['department']) ?></td>
+                <td>
+                    <?php if (!empty($row['image'])): ?>
+                    <img src="<?= htmlspecialchars($row['image']) ?>" alt="Photo" style="width:40px;height:40px;object-fit:cover;border-radius:50%;">
+                    <?php else: ?>
+                    <span class="text-muted">—</span>
+                    <?php endif; ?>
+                </td>
                 <td>
                     <a href="view.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-info">View</a>
                     <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">Edit</a>

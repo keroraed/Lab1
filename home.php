@@ -13,7 +13,7 @@
             <h5 class="mb-0">Add New User</h5>
         </div>
         <div class="card-body">
-            <form action="save.php" method="post">
+            <form action="save.php" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label">First Name</label>
                     <input type="text" class="form-control" name="first_name" required>
@@ -67,6 +67,11 @@
                 <div class="mb-3">
                     <label class="form-label">Department</label>
                     <input type="text" class="form-control" name="department" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Profile Picture</label>
+                    <input type="file" class="form-control" name="image" accept="image/jpeg,image/png">
+                    <small class="text-muted">Optional. JPG or PNG only, max 2MB.</small>
                 </div>
                 <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-primary">Save User</button>
