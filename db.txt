@@ -1,1 +1,0 @@
-Kerolos|Ghaly|Thabet St  Apt|USA|Male|PHP-MySQL|root|root|OpenSource

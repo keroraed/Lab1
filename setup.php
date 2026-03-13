@@ -41,7 +41,7 @@
     )";
 
     // Add image column to existing table if missing
-    $conn->query("ALTER TABLE users ADD COLUMN IF NOT EXISTS image VARCHAR(255) DEFAULT ''");
+    $conn->query("ALTER TABLE users ADD COLUMN image VARCHAR(255) DEFAULT ''"); // silently fails if already exists
 
     if ($conn->query($sql)) {
         echo '<div class="alert alert-success">✔ Table <strong>users</strong> is ready.</div>';
