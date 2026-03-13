@@ -30,6 +30,6 @@ $stmt = $connection->prepare(
     "INSERT INTO users (first_name, last_name, address, country, gender, skills, username, password, department, image)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 );
-$stmt->execute([$first_name, $last_name, $address, $country, $gender, $skills, $username, $password, $department, $imagePath]);
+$stmt->execute([$first_name, $last_name, $address, $country, $gender, $skills, $username, password_hash($password, PASSWORD_DEFAULT), $department, $imagePath]);
 
 header('Location: list.php');

@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([
             $form['first_name'], $form['last_name'], $form['address'],
             $form['country'], $form['gender'], $skillsStr,
-            $form['username'], $form['password'], $form['department'], $imagePath,
+            $form['username'], password_hash($form['password'], PASSWORD_DEFAULT), $form['department'], $imagePath,
         ]);
         header('Location: list.php');
         exit;
