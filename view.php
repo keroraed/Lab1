@@ -1,4 +1,6 @@
 <?php
+session_start();
+if (!isset($_SESSION['user'])) { header('Location: login.php'); exit; }
 require 'conn.php';
 $id   = (int)($_GET['id'] ?? 0);
 $stmt = $connection->prepare("SELECT * FROM users WHERE id = ?");

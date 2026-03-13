@@ -1,4 +1,8 @@
-<?php require 'conn.php'; ?>
+<?php
+session_start();
+if (!isset($_SESSION['user'])) { header('Location: login.php'); exit; }
+require 'conn.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +13,13 @@
 </head>
 <body>
 <div class="container mt-4">
-    <h3>Users List</h3>
-    <p><a href="home.php" class="btn btn-primary btn-sm">+ Add New User</a></p>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Users List</h3>
+        <div class="d-flex gap-2">
+            <a href="home.php" class="btn btn-primary btn-sm">+ Add New User</a>
+            <a href="logout.php" class="btn btn-danger btn-sm">Logout</a>
+        </div>
+    </div>
     <?php
     $result = $connection->query("SELECT * FROM users ORDER BY id DESC");
     if ($result->rowCount() === 0):
