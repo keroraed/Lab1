@@ -53,16 +53,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($form['department']))
         $errors['department'] = "Department is required";
 
+    // Handle profile picture upload (validate regardless, only save if no other errors)
+    $imagePath = '';
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $allowed = ['image/jpeg', 'image/png'];
+        if (!in_array($_FILES['image']['type'], $allowed)) {
+            $errors['image'] = "Only JPG or PNG images are allowed";
+        } elseif ($_FILES['image']['size'] > 2000000) {
+            $errors['image'] = "Image size must be less than 2MB";
+        }
+    }
+
     if (empty($errors)) {
+        // Save uploaded image if present
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            if (!is_dir('uploads')) {
+                mkdir('uploads', 0755, true);
+            }
+            $ext    = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            $target = 'uploads/' . time() . '_' . uniqid() . '.' . $ext;
+            move_uploaded_file($_FILES['image']['tmp_name'], $target);
+            $imagePath = $target;
+        }
+
         $skillsStr = implode('-', $form['skills']);
         $stmt = $connection->prepare(
-            "INSERT INTO users (first_name, last_name, address, country, gender, skills, username, password, department)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO users (first_name, last_name, address, country, gender, skills, username, password, department, image)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         $stmt->execute([
             $form['first_name'], $form['last_name'], $form['address'],
             $form['country'], $form['gender'], $skillsStr,
-            $form['username'], $form['password'], $form['department'],
+            $form['username'], $form['password'], $form['department'], $imagePath,
         ]);
         header('Location: list.php');
         exit;
@@ -144,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h5 class="mb-0">Add New User</h5>
         </div>
         <div class="card-body">
-            <form action="home.php" method="post" name="userForm" onsubmit="return validateForm()">
+            <form action="home.php" method="post" enctype="multipart/form-data" name="userForm" onsubmit="return validateForm()">
 
                 <div class="row mb-3">
                     <div class="col">
@@ -232,6 +254,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                            class="form-control <?= isset($errors['department']) ? 'is-invalid' : '' ?>"
                            name="department" value="<?= htmlspecialchars($form['department']) ?>">
                     <div class="invalid-feedback"><?= $errors['department'] ?? '' ?></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Profile Picture</label>
+                    <input type="file" class="form-control <?= isset($errors['image']) ? 'is-invalid' : '' ?>"
+                           name="image" accept="image/jpeg,image/png">
+                    <div class="invalid-feedback"><?= $errors['image'] ?? '' ?></div>
+                    <small class="text-muted">Optional. JPG or PNG only, max 2MB.</small>
                 </div>
 
                 <div class="d-flex gap-2">

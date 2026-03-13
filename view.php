@@ -31,6 +31,12 @@ if (!$row) { header('Location: list.php'); exit; }
         <tr><th>Username</th><td><?= htmlspecialchars($row['username']) ?></td></tr>
         <tr><th>Password</th><td><?= htmlspecialchars($row['password']) ?></td></tr>
         <tr><th>Department</th><td><?= htmlspecialchars($row['department']) ?></td></tr>
+        <?php if (!empty($row['image'])): ?>
+        <tr>
+            <th>Profile Picture</th>
+            <td><img src="<?= htmlspecialchars($row['image']) ?>" alt="Profile" style="max-width:150px; max-height:150px; border-radius:8px;"></td>
+        </tr>
+        <?php endif; ?>
     </table>
     <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning">Edit</a>
     <a href="list.php" class="btn btn-secondary">Back to List</a>

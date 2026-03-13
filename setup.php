@@ -36,8 +36,12 @@
         skills      VARCHAR(255),
         username    VARCHAR(100),
         password    VARCHAR(255),
-        department  VARCHAR(100)
+        department  VARCHAR(100),
+        image       VARCHAR(255) DEFAULT ''
     )";
+
+    // Add image column to existing table if missing
+    $conn->query("ALTER TABLE users ADD COLUMN IF NOT EXISTS image VARCHAR(255) DEFAULT ''");
 
     if ($conn->query($sql)) {
         echo '<div class="alert alert-success">✔ Table <strong>users</strong> is ready.</div>';
