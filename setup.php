@@ -16,7 +16,6 @@
         exit;
     }
 
-    // Create database
     if ($conn->query("CREATE DATABASE IF NOT EXISTS lab1")) {
         echo '<div class="alert alert-success">✔ Database <strong>lab1</strong> is ready.</div>';
     } else {
@@ -25,7 +24,6 @@
 
     $conn->select_db('lab1');
 
-    // Create table
     $sql = "CREATE TABLE IF NOT EXISTS users (
         id          INT AUTO_INCREMENT PRIMARY KEY,
         first_name  VARCHAR(100) NOT NULL,
@@ -40,7 +38,6 @@
         image       VARCHAR(255) DEFAULT ''
     )";
 
-    // Add image column to existing table if missing
     $conn->query("ALTER TABLE users ADD COLUMN image VARCHAR(255) DEFAULT ''"); // silently fails if already exists
 
     if ($conn->query($sql)) {
