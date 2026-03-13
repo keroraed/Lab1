@@ -59,8 +59,9 @@ $skills = explode('-', $row['skills']);
             <input type="text" name="username" value="<?= htmlspecialchars($row['username']) ?>" required>
         </p>
         <p>
-            <label>Password:</label><br>
-            <input type="password" name="password" value="<?= htmlspecialchars($row['password']) ?>" required>
+            <label>New Password:</label><br>
+            <input type="password" name="password" placeholder="Leave blank to keep current password">
+            <br><small>Leave blank to keep the existing password</small>
         </p>
         <p>
             <label>Department:</label><br>

@@ -15,7 +15,7 @@ $stmt = $connection->prepare(
     "INSERT INTO users (first_name, last_name, address, country, gender, skills, username, password, department)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
 );
-$stmt->execute([$first_name, $last_name, $address, $country, $gender, $skills, $username, $password, $department]);
+$stmt->execute([$first_name, $last_name, $address, $country, $gender, $skills, $username, password_hash($password, PASSWORD_DEFAULT), $department]);
 
 header('Location: list.php');
 
